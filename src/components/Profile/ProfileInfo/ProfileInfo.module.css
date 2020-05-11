@@ -1,0 +1,13 @@
+.description {
+  padding: 10px;
+}
+
+.profileBg {
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.description img {
+  width: 100px;
+}
