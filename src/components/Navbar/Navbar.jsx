@@ -1,26 +1,18 @@
 import React from "react";
 import s from './Navbar.module.css';
-import {NavLink} from "react-router-dom";
+import NavbarMenu from "./NavbarMenu/NavbarMenu";
+import FriendsOnline from "./FriendsOnline/FriendsOnline";
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
-      <nav className={s.nav}>
-        <div className={s.item}>
-          <NavLink to="/profile" className={s.link} activeClassName={s.active}>Profile</NavLink>
+      <div className={s.navBar}>
+        <NavbarMenu links={props.state.menuLinks} />
+
+        <div className={s.friendsOnline}>
+            <FriendsOnline friends={props.state.friends} />
         </div>
-        <div className={s.item}>
-          <NavLink to="/dialogs" className={s.link} activeClassName={s.active}>Messages</NavLink>
-        </div>
-        <div className={s.item}>
-          <NavLink to="/news" className={s.link} activeClassName={s.active}>News</NavLink>
-        </div>
-        <div className={s.item}>
-          <NavLink to="/music" className={s.link} activeClassName={s.active}>Music</NavLink>
-        </div>
-        <div className={s.item}>
-          <NavLink to="/settings" className={s.link} activeClassName={s.active}>Settings</NavLink>
-        </div>
-      </nav>
+      </div>
+
   );
 };
 

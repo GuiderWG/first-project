@@ -1,0 +1,13 @@
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.friendsGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

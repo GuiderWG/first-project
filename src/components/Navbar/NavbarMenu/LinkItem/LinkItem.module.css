@@ -1,0 +1,10 @@
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 3px 0;
+  display: block;
+}
+
+.link.active {
+  color: gold;
+}
