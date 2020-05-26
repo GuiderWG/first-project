@@ -36,8 +36,15 @@ let state = {
       {id: 3, name: "Sasha", img: 'http://398yingxiao.com/adminvip/images/logo_circle.png' }
     ],
   },
+}
 
-
+export let addPost = (postMessage) => {
+  let newPost = {
+    id:5,
+    message: postMessage,
+    counts: 0
+  };
+  state.profilePage.posts.push(newPost);
 }
 
 export default state;
