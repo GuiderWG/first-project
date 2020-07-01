@@ -28,7 +28,7 @@ let store = {
         {id: 2, message: 'I like to learning JS React'},
         {id: 3, message: 'Wow it is awesome!!!'}
       ],
-      newMessageText: 'MS'
+      newMessageText: 'Message'
     },
     navbar: {
       menuLinks: [
