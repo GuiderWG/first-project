@@ -10,15 +10,12 @@ const Dialogs = (props) => {
 
   let messagesElements = props.state.messages.map(message => <MessageItem message={message.message} key={message.id}/> );
 
-  //let newMessageElement = React.createRef();
-
   const sendMessage = () => {
     props.dispatch(addMessageActionCreate());
   }
 
   let onMessageChange = (e) => {
     let text = e.target.value;
-    //let text = newMessageElement.current.value;
     let action = updateNewMessageActionCreator(text);
     props.dispatch(action);
   }
