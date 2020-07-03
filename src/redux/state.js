@@ -1,8 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+import profileReducer from "./profileReducer";
+import dialigsReducer from "./dialogsReducer";
+import navbarReducer from "./navbarReducer";
 
 let store = {
   _state: {
@@ -56,77 +54,15 @@ let store = {
     this._callSubscriber = observer;
   },
 
-  addMessage () {
-    let newMessage = {
-      id: 4,
-      message: this._state.dialogsPage.newMessageText
-    }
-    this._state.dialogsPage.messages.push(newMessage);
-    this._state.dialogsPage.newMessageText = '';
-    this._callSubscriber(this._state);
-  },
-  updateNewMessageText (newMessage) {
-    this._state.dialogsPage.newMessageText = newMessage;
-    this._callSubscriber(this._state);
-  },
-  addPost () {
-    let newPost = {
-      id:5,
-      message: this._state.profilePage.newPostText,
-      counts: 0
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._callSubscriber(this._state);
-  },
-  updateNewPostText (newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this._state);
-  },
-
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      let newPost = {
-        id:5,
-        message: this._state.profilePage.newPostText,
-        counts: 0
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = '';
-      this._callSubscriber(this._state);
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialigsReducer(this._state.dialogsPage, action);
+    this._state.navbar = navbarReducer(this._state.navbar, action);
 
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.newPostText = action.newText;
-      this._callSubscriber(this._state);
-
-    } else if (action.type === ADD_MESSAGE) {
-      let newMessage = {
-        id: 4,
-        message: this._state.dialogsPage.newMessageText
-      }
-      this._state.dialogsPage.messages.push(newMessage);
-      this._state.dialogsPage.newMessageText = '';
-      this._callSubscriber(this._state);
-
-    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageText = action.newMessage;
-      this._callSubscriber(this._state);
-    }
+    this._callSubscriber(this._state);
 
   }
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST});
-
-export const updateNewPostActionCreator = (text) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text});
-
-export const addMessageActionCreate = () => ({type: ADD_MESSAGE});
-
-export const updateNewMessageActionCreator = (text) =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, newMessage: text});
-
-
 
 window.store = store;
 
