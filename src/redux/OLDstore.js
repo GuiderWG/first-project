@@ -1,5 +1,5 @@
 import profileReducer from "./profileReducer";
-import dialigsReducer from "./dialogsReducer";
+import dialogsReducer from "./dialogsReducer";
 import navbarReducer from "./navbarReducer";
 
 let store = {
@@ -56,7 +56,7 @@ let store = {
 
   dispatch(action) {
     this._state.profilePage = profileReducer(this._state.profilePage, action);
-    this._state.dialogsPage = dialigsReducer(this._state.dialogsPage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._state.navbar = navbarReducer(this._state.navbar, action);
 
     this._callSubscriber(this._state);
