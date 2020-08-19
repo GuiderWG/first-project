@@ -4,7 +4,8 @@ let initialState = {
     {id: 2, url: '/dialogs', name: "Messages" },
     {id: 3, url: '/news', name: "News" },
     {id: 4, url: '/music', name: "Music" },
-    {id: 5, url: '/settings', name: "Settings" }
+    {id: 5, url: '/settings', name: "Settings" },
+    {id: 5, url: '/users', name: "Users" },
   ],
   friends: [
     {id: 1, name: "Dimych", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
