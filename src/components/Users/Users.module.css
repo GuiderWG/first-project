@@ -1,0 +1,65 @@
+.users {
+  padding: 20px;
+}
+
+.item {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftCol {
+  text-align: center;
+  flex: 0 0 20%;
+  max-width: 20%;
+  background: #eee;
+  padding: 20px 30px;
+}
+
+.photo {
+  max-width: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin: 0 auto 10px auto;
+}
+
+.photo img {
+  max-width: 100%;
+  display: block;
+}
+
+.rightCol {
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 68%;
+  max-width: 68%;
+  padding: 20px 30px;
+  background: #ea3f36;
+  color: #ffffff;
+}
+
+.fullName {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.country {
+  font-size: 22px;
+}
+
+.button {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 7px 30px;
+}
+
+.button_red {
+  background: #CC0000;
+}
+
+.button_gray {
+  background: #303030;
+}
