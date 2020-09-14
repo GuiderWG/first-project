@@ -1,3 +1,5 @@
+const SET_FRIENDS = 'SET_FRIENDS';
+
 let initialState = {
   menuLinks: [
     {id: 1, url: '/profile', name: "Profile" },
@@ -5,17 +7,25 @@ let initialState = {
     {id: 3, url: '/news', name: "News" },
     {id: 4, url: '/music', name: "Music" },
     {id: 5, url: '/settings', name: "Settings" },
-    {id: 5, url: '/users', name: "Users" },
+    {id: 6, url: '/users', name: "Users" },
   ],
   friends: [
-    {id: 1, name: "Dimych", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
-    {id: 2, name: "Sveta", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
-    {id: 3, name: "Sasha", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' }
+    // {id: 1, name: "Dimych", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
+    // {id: 2, name: "Sveta", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
+    // {id: 3, name: "Sasha", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' }
   ],
 };
 
 const navbarReducer = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+    case SET_FRIENDS:
+      return {...state, friends: [...state.friends, ...action.friends]};
+
+    default:
+      return state;
+  }
 };
+
+export let setFriendsOnlineAC = friends => ({type: SET_FRIENDS, friends})
 
 export default navbarReducer;

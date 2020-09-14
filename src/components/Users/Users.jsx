@@ -5,29 +5,35 @@ import * as axios from "axios"
 
 let Users = ({setUsers, users, unfollow, follow}) => {
 
-  if (users.length === 0) {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-      setUsers(response.data.items);
-    });
+  let getUsers = () => {
+    if (users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        setUsers(response.data.items);
+      });
+    }
+  };
 
-  }
-
-  console.log(users)
   return (
       <div className={s.users}>
+        <button onClick={getUsers} className={`${s.button} ${s.button_red} ${s.button_center}`} >Get Users</button>
         {
           users.map(user => <div className={s.item} key={user.id}>
             <div className={s.leftCol}>
               <div className={s.photo}>
-                <img src={user.photos.small ? user.photos.small : 'https://i.stack.imgur.com/T17Mh.png?s=328&g=1'} alt=""/>
+                <img src={user.photos.small ? user.photos.small : 'https://i.stack.imgur.com/T17Mh.png?s=328&g=1'}
+                     alt=""/>
               </div>
               {user.followed
                   ? <button
                       className={`${s.button} ${s.button_gray}`}
-                      onClick={() => {unfollow(user.id)}}>Unfollow</button>
+                      onClick={() => {
+                        unfollow(user.id)
+                      }}>Unfollow</button>
                   : <button
                       className={`${s.button} ${s.button_red}`}
-                      onClick={() => {follow(user.id)}}>Follow</button>}
+                      onClick={() => {
+                        follow(user.id)
+                      }}>Follow</button>}
             </div>
             <div className={s.rightCol}>
               <div className={s.info}>

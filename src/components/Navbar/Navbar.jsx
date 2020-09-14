@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Navbar.module.css';
 import NavbarMenu from "./NavbarMenu/NavbarMenu";
-import FriendsOnline from "./FriendsOnline/FriendsOnline";
+import FriendsOnlineContainer from "./FriendsOnline/FriendsOnlineContainer";
 
 const Navbar = (props) => {
 
@@ -11,7 +11,7 @@ const Navbar = (props) => {
         <NavbarMenu links={state.menuLinks} />
 
         <div className={s.friendsOnline}>
-            <FriendsOnline friends={state.friends} />
+            <FriendsOnlineContainer friends={state.friends} />
         </div>
       </div>
 
