@@ -9,11 +9,7 @@ let initialState = {
     {id: 5, url: '/settings', name: "Settings" },
     {id: 6, url: '/users', name: "Users" },
   ],
-  friends: [
-    // {id: 1, name: "Dimych", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
-    // {id: 2, name: "Sveta", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' },
-    // {id: 3, name: "Sasha", img: 'https://img.icons8.com/color/50/000000/administrator-male--v1.png' }
-  ],
+  friends: [],
 };
 
 const navbarReducer = (state = initialState, action) => {
