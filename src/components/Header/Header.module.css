@@ -1,5 +1,7 @@
 .header {
   grid-area: h;
+  background: #333336;
+  margin-bottom: 15px;
 }
 .header img {
   width: 90px;

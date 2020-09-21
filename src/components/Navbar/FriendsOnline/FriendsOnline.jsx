@@ -6,7 +6,7 @@ import * as axios from "axios"
 
 class FriendsOnline extends React.Component {
   componentDidMount() {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users?count=3').then(response => {
+    axios.get('https://social-network.samuraijs.com/api/1.0/users?count=4').then(response => {
       if (this.props.friends.length === 0) {
         this.props.setFriend(response.data.items);
       }
