@@ -15,13 +15,13 @@ let initialState = {
 const navbarReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_FRIENDS:
-      return {...state, friends: [...state.friends, ...action.friends]};
+      return {...state, friends: action.friends};
 
     default:
       return state;
   }
 };
 
-export let setFriendsOnlineAC = friends => ({type: SET_FRIENDS, friends})
+export let setFriendsOnline = friends => ({type: SET_FRIENDS, friends})
 
 export default navbarReducer;
