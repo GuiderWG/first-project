@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Users.module.css";
 
 let Users = (props) => {
-
   let pagesCount = Math.ceil(props.totalCount / props.pageSize);
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
@@ -60,7 +59,7 @@ let Users = (props) => {
         }
 
         <button className={`${s.button} ${s.button_red}`}
-                onClick={() => { props.onPageMore(props.currentPage) }}>Show more</button>
+                onClick={() => { props.onPageMore(props.currentPage) }}>{props.btnTextIsFetching ? 'Load...' : 'Show more'}</button>
       </div>
   )
 }

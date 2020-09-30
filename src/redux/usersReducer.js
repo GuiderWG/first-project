@@ -4,12 +4,16 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT = 'SET_CURRENT';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_USERS_MORE = 'SET_USERS_MORE';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const BTN_IS_FETCHING = 'BTN_IS_FETCHING';
 
 let initialState = {
   users: [],
   pageSize: 5,
   totalCount: 0,
   currentPage: 1,
+  isFetching: true,
+  btnTextIsFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -46,6 +50,12 @@ const usersReducer = (state = initialState, action) => {
     case SET_USERS_MORE: {
       return {...state, users: [...state.users, ...action.users]}
     }
+    case TOGGLE_IS_FETCHING: {
+      return {...state, isFetching: action.isFetching}
+    }
+    case BTN_IS_FETCHING: {
+      return {...state, btnTextIsFetching: action.passIsFetching}
+    }
     default:
       return state
   }
@@ -57,5 +67,7 @@ export const setUsers = users =>  ({type: SET_USERS, users});
 export const setCurrent = currentPage =>  ({type: SET_CURRENT, currentPage});
 export const setTotalCount = totalCount =>  ({type: SET_TOTAL_COUNT, totalCount});
 export const setUsersMore = users =>  ({type: SET_USERS_MORE, users});
+export const toggleIsFetching = isFetching =>  ({type: TOGGLE_IS_FETCHING, isFetching});
+export const btnIsFetching = passIsFetching =>  ({type: BTN_IS_FETCHING, passIsFetching});
 
 export default usersReducer
