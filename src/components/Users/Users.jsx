@@ -1,5 +1,7 @@
 import React from "react";
 import s from "./Users.module.css";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {NavLink} from "react-router-dom";
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -21,6 +23,7 @@ let Users = (props) => {
         </ul>
         {
           props.users.map(user => <div className={s.item} key={user.id}>
+            <NavLink to={`/profile/${user.id}`}/>
             <div className={s.leftCol}>
               <div className={s.photo}>
                 <img src={user.photos.small ? user.photos.small : 'https://i.stack.imgur.com/T17Mh.png?s=328&g=1'}
@@ -59,7 +62,9 @@ let Users = (props) => {
         }
 
         <button className={`${s.button} ${s.button_red}`}
-                onClick={() => { props.onPageMore(props.currentPage) }}>{props.btnTextIsFetching ? 'Load...' : 'Show more'}</button>
+                onClick={() => {
+                  props.onPageMore(props.currentPage)
+                }}>{props.btnTextIsFetching ? <FontAwesomeIcon icon="circle-notch" spin/> : 'Show more'} </button>
       </div>
   )
 }

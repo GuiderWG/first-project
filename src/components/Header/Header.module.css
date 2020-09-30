@@ -2,7 +2,8 @@
   grid-area: h;
   background: #333336;
   margin-bottom: 15px;
+  text-align: center;
 }
 .header img {
-  width: 90px;
+  width: 190px;
 }

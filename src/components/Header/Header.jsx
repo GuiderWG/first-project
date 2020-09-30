@@ -1,9 +1,10 @@
 import React from "react";
 import s from './Header.module.css';
+import reactLogo from '../../assets/images/reactjs-ar21.svg'
 
 const Header = () => {
   return (
-      <header className={s.header}><img src="https://im0-tub-ru.yandex.net/i?id=24089fafe25fabdc41105fa920c7bff1&n=13&exp=1" alt=""/></header>
+      <header className={s.header}><img src={reactLogo} alt=""/></header>
   );
 };
 
