@@ -8,8 +8,12 @@
 # Webstorm
 /.idea
 
+# VS Code
+/.vscode
+
 # testing
 /coverage
+
 
 # production
 /build
