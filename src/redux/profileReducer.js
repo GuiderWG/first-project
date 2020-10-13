@@ -1,6 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SER_USER_PROFILE = 'SER_USER_PROFILE';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 let initialState = {
   posts: [
@@ -9,6 +10,7 @@ let initialState = {
   ],
   newPostText: 'IT',
   profile: null,
+  isFetching: true
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -30,7 +32,9 @@ const profileReducer = (state = initialState, action) => {
     case SER_USER_PROFILE: {
       return {...state, profile: action.profile}
     }
-
+    case TOGGLE_IS_FETCHING: {
+      return {...state, isFetching: action.isFetching}
+    }
     default:
       return state
   }
@@ -38,7 +42,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const setUserProfile = (profile) => ({type: SER_USER_PROFILE, profile});
-
+export const toggleIsFetching = isFetching =>  ({type: TOGGLE_IS_FETCHING, isFetching});
 export const updateNewPostActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
