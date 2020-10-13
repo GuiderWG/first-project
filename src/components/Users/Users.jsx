@@ -12,15 +12,15 @@ let Users = (props) => {
 
   return (
       <div className={s.users}>
-        <ul className={s.nav}>
-          {
-            pages.map(page => {
-              return <li onClick={() => {
-                props.onPageChanged(page)
-              }} className={props.currentPage === page ? s.current : ''}>{page}</li>
-            })
-          }
-        </ul>
+        {/*<ul className={s.nav}>*/}
+        {/*  {*/}
+        {/*    pages.map(page => {*/}
+        {/*      return <li onClick={() => {*/}
+        {/*        props.onPageChanged(page)*/}
+        {/*      }} className={props.currentPage === page ? s.current : ''}>{page}</li>*/}
+        {/*    })*/}
+        {/*  }*/}
+        {/*</ul>*/}
         {
           props.users.map(user => <div className={s.item} key={user.id}>
             <NavLink to={`/profile/${user.id}`}/>

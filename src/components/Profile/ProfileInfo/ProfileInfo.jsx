@@ -8,10 +8,19 @@ const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader/>
   }
+  let contacts = props.profile.contacts;
   return (
-      <div>
-        <div className={s.profileBg}><img src="https://wallbox.ru/wallpapers/main/201611/e24797d8928253e.jpg" alt=""/></div>
-        <div className={s.description}><img src={props.profile.photos.small} alt=""/> {props.profile.aboutMe}</div>
+      <div className={s.profile}>
+        <div className={s.photo}><img src={props.profile.photos.large ? props.profile.photos.large : 'https://i.stack.imgur.com/T17Mh.png?s=328&g=1'} alt=""/></div>
+        <div className={s.inf}>
+          <div className={s.fullName}>{props.profile.fullName}</div>
+          <div className={s.aboutMe}>{props.profile.aboutMe}</div>
+          <div className={s.contacts}>
+            {Object.keys(contacts).map((link, idx) => {
+               return contacts[link] ? <a href={contacts[link]} className={s.link} key={idx}>{contacts[link]}</a> : '';
+            })}
+          </div>
+        </div>
       </div>
   );
 };

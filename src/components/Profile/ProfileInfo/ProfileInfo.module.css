@@ -1,13 +1,29 @@
-.description {
-  padding: 10px;
+.profile {
+  padding: 20px;
+  display: flex;
 }
 
-.profileBg {
-  height: 250px;
-  overflow: hidden;
-  margin-bottom: 40px;
+.photo {
+  margin-right: 15px;
+  max-width: 300px;
 }
 
-.description img {
-  width: 100px;
+.contacts {
+  margin-top: 10px;
+}
+
+.link {
+  margin-right: 5px;
+  display: inline-block;
+  color: gold;
+}
+
+.fullName {
+  font-size: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.aboutMe {
+  opacity: .7;
 }
