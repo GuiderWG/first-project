@@ -1,5 +1,5 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from 'react';
+import {connect} from 'react-redux';
 import {
   btnIsFetching,
   follow,
@@ -8,19 +8,21 @@ import {
   setUsers,
   setUsersMore, toggleIsFetching,
   unfollow
-} from "../../redux/usersReducer";
-import * as axios from "axios";
-import Users from "./Users";
-import Preloader from "../common/preloader/preloader";
+} from '../../redux/usersReducer';
+import * as axios from 'axios';
+import Users from './Users';
+import Preloader from '../common/preloader/preloader';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(response.data.items);
-      this.props.setTotalCount(response.data.totalCount);
-    });
+    axios
+        .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .then(response => {
+          this.props.toggleIsFetching(false);
+          this.props.setUsers(response.data.items);
+          this.props.setTotalCount(response.data.totalCount);
+        });
   }
 
   onPageChanged = (pageNum) => {
@@ -28,7 +30,7 @@ class UsersContainer extends React.Component {
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
       this.props.setUsers(response.data.items);
     });
-  }
+  };
 
   onPageMore = (pageNum) => {
     this.props.btnIsFetching(true);
@@ -37,7 +39,7 @@ class UsersContainer extends React.Component {
       this.props.btnIsFetching(false);
       this.props.setUsersMore(response.data.items);
     });
-  }
+  };
 
   render() {
     return (
@@ -56,7 +58,7 @@ class UsersContainer extends React.Component {
 
 
         </>
-    )
+    );
 
   }
 }
@@ -69,8 +71,17 @@ let mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     btnTextIsFetching: state.usersPage.btnTextIsFetching,
-  }
+  };
 };
 
 export default connect(mapStateToProps,
-    {follow, setCurrent, setTotalCount, setUsers, setUsersMore, unfollow, toggleIsFetching, btnIsFetching})(UsersContainer);
+    {
+      follow,
+      setCurrent,
+      setTotalCount,
+      setUsers,
+      setUsersMore,
+      unfollow,
+      toggleIsFetching,
+      btnIsFetching
+    })(UsersContainer);
