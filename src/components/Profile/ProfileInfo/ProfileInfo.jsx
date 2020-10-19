@@ -1,8 +1,12 @@
 import React from "react";
 import s from "./ProfileInfo.module.css"
+import Preloader from '../../common/preloader/preloader';
 
 
 const ProfileInfo = (props) => {
+  if (!props.profile) {
+    return <Preloader/>
+  }
   let contacts = props.profile.contacts;
   return (
       <div className={s.profile}>
