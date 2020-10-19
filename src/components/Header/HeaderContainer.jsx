@@ -1,11 +1,12 @@
-import React from 'react';
 import * as axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
+import {setAuthUserData, toggleIsFetching} from '../../redux/authReducer';
 import Header from './Header';
-import {connect} from 'react-redux';
-import {setAuthUserData} from '../../redux/authReducer';
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
+    this.props.toggleIsFetching(true);
     axios
         .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
           withCredentials: true,
@@ -15,7 +16,7 @@ class HeaderContainer extends React.Component {
             let {id, email, login} = response.data.data
             this.props.setAuthUserData(id, email, login);
           }
-
+          this.props.toggleIsFetching(false);
         });
   }
 
@@ -28,7 +29,8 @@ let mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
+    isFetching: state.auth.isFetching,
   };
 };
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps, {setAuthUserData, toggleIsFetching})(HeaderContainer);
