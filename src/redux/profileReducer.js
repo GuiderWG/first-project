@@ -10,7 +10,7 @@ let initialState = {
   ],
   newPostText: 'IT',
   profile: null,
-  isFetching: true
+  isFetching: false
 };
 
 const profileReducer = (state = initialState, action) => {
