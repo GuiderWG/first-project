@@ -1,13 +1,14 @@
-import React from "react";
-import s from "./Users.module.css";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {NavLink} from "react-router-dom";
+import React from 'react';
+import s from './Users.module.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {NavLink} from 'react-router-dom';
+import * as axios from 'axios';
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalCount / props.pageSize);
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
+    pages.push(i);
   }
 
   return (
@@ -33,12 +34,35 @@ let Users = (props) => {
                   ? <button
                       className={`${s.button} ${s.button_gray}`}
                       onClick={() => {
-                        props.unfollow(user.id)
+                        axios
+                            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                              withCredentials: true,
+                              headers: {
+                                'API-KEY': 'ebaaf371-80bd-4830-907a-9096f659d7ed'
+                              }
+                            })
+                            .then(response => {
+                              if (response.data.resultCode === 0) {
+                                props.unfollow(user.id);
+                              }
+                            });
                       }}>Unfollow</button>
                   : <button
                       className={`${s.button} ${s.button_red}`}
                       onClick={() => {
-                        props.follow(user.id)
+                        axios
+                            .post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                              withCredentials: true,
+                              headers: {
+                                'API-KEY': 'ebaaf371-80bd-4830-907a-9096f659d7ed'
+                              }
+                            })
+                            .then(response => {
+                              if (response.data.resultCode === 0) {
+                                props.follow(user.id);
+
+                              }
+                            });
                       }}>Follow</button>}
             </div>
             <div className={s.rightCol}>
@@ -63,10 +87,10 @@ let Users = (props) => {
 
         <button className={`${s.button} ${s.button_red}`}
                 onClick={() => {
-                  props.onPageMore(props.currentPage)
+                  props.onPageMore(props.currentPage);
                 }}>{props.btnTextIsFetching ? <FontAwesomeIcon icon="circle-notch" spin/> : 'Show more'} </button>
       </div>
-  )
-}
+  );
+};
 
 export default Users;

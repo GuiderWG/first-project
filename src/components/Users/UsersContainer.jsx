@@ -17,7 +17,9 @@ class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
     axios
-        .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+          withCredentials: true,
+        })
         .then(response => {
           this.props.toggleIsFetching(false);
           this.props.setUsers(response.data.items);
@@ -25,17 +27,21 @@ class UsersContainer extends React.Component {
         });
   }
 
-  onPageChanged = (pageNum) => {
-    this.props.setCurrent(pageNum);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
-      this.props.setUsers(response.data.items);
-    });
-  };
+  // onPageChanged = (pageNum) => {
+  //   this.props.setCurrent(pageNum);
+  //   axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`, {
+  //     withCredentials: true,
+  //   }).then(response => {
+  //     this.props.setUsers(response.data.items);
+  //   });
+  // };
 
   onPageMore = (pageNum) => {
     this.props.btnIsFetching(true);
     this.props.setCurrent(++pageNum);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`, {
+      withCredentials: true,
+    }).then(response => {
       this.props.btnIsFetching(false);
       this.props.setUsersMore(response.data.items);
     });
