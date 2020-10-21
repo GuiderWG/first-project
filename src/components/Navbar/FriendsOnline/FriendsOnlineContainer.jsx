@@ -3,12 +3,15 @@ import {connect} from "react-redux";
 import FriendsOnline from "./FriendsOnline";
 import {setFriendsOnline} from "../../../redux/navbarReducer";
 import * as axios from "axios";
+import {usersAPI} from '../../../api/api';
 
 class FriendsOnlineContainer extends React.Component {
   componentDidMount() {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users?count=4').then(response => {
+    usersAPI
+      .getUsers(1, 4)
+      .then(data => {
       if (this.props.friends.length === 0) {
-        this.props.setFriendsOnline(response.data.items);
+        this.props.setFriendsOnline(data.items);
       }
     });
   }
