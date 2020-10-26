@@ -65,9 +65,16 @@
   border: none;
   cursor: pointer;
   color: #fff;
-  padding: 7px 30px;
+  padding: 7px 0;
+  width: 155px;
   position: relative;
   z-index: 2;
+}
+
+button:disabled,
+button[disabled] {
+  opacity: .6;
+  cursor: progress;
 }
 
 .button_red {
