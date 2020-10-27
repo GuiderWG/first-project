@@ -38,8 +38,8 @@ let Users = (props) => {
                         props.toggleIsFollowing(true, user.id);
                         usersAPI
                             .setUnfollow(user.id)
-                            .then(data => {
-                              if (data.resultCode === 0) {
+                            .then(response => {
+                              if (response.data.resultCode === 0) {
                                 props.unfollow(user.id);
                               }
                               props.toggleIsFollowing(false, user.id);
@@ -52,8 +52,8 @@ let Users = (props) => {
                         props.toggleIsFollowing(true, user.id);
                         usersAPI
                             .setFollow(user.id)
-                            .then(data => {
-                              if (data.resultCode === 0) {
+                            .then(response => {
+                              if (response.data.resultCode === 0) {
                                 props.follow(user.id);
                               }
                               props.toggleIsFollowing(false, user.id);

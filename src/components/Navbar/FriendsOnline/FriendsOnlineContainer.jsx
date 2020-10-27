@@ -9,9 +9,9 @@ class FriendsOnlineContainer extends React.Component {
   componentDidMount() {
     usersAPI
       .getUsers(1, 4)
-      .then(data => {
+      .then(response => {
       if (this.props.friends.length === 0) {
-        this.props.setFriendsOnline(data.items);
+        this.props.setFriendsOnline(response.data.items);
       }
     });
   }

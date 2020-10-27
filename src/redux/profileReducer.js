@@ -1,3 +1,5 @@
+import {usersAPI} from '../api/api';
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SER_USER_PROFILE = 'SER_USER_PROFILE';
@@ -42,8 +44,20 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const setUserProfile = (profile) => ({type: SER_USER_PROFILE, profile});
-export const toggleIsFetching = isFetching =>  ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFetching = isFetching => ({type: TOGGLE_IS_FETCHING, isFetching});
+
+export const getUserProfile = (userId) => (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  usersAPI
+    .getUsersProfile(userId)
+    .then(response => {
+      dispatch(setUserProfile(response.data));
+      dispatch(toggleIsFetching(false));
+    });
+}
+
 export const updateNewPostActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
+
 
 export default profileReducer
