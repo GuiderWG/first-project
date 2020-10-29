@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-  btnIsFetching,
-  follow,
+  follow, 
+  getUsers,
+  getUsersMore,
   setCurrent,
-  setTotalCount,
-  setUsers,
-  setUsersMore, toggleIsFetching, toggleIsFollowing,
+  toggleIsFollowing,
   unfollow
 } from '../../redux/usersReducer';
 import Users from './Users';
@@ -16,19 +15,11 @@ import {usersAPI} from '../../api/api';
 class UsersContainer extends React.Component {
 
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then(response => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalCount(response.data.totalCount);
-      });
-
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   // onPageChanged = (pageNum) => {
+  //   this.props.getUsers(pageNum, this.props.pageSize);
   //   this.props.setCurrent(pageNum);
   //
   //   usersAPI.getUsers(pageNum, this.props.pageSize)
@@ -39,16 +30,7 @@ class UsersContainer extends React.Component {
   // };
 
   onPageMore = (pageNum) => {
-    this.props.btnIsFetching(true);
-    this.props.setCurrent(++pageNum);
-
-    usersAPI
-      .getUsers(pageNum, this.props.pageSize)
-      .then(response => {
-        this.props.btnIsFetching(false);
-        this.props.setUsersMore(response.data.items);
-      });
-
+    this.props.getUsersMore(pageNum, this.props.pageSize)
   };
 
   render() {
@@ -90,11 +72,8 @@ export default connect(mapStateToProps,
   {
     follow,
     setCurrent,
-    setTotalCount,
-    setUsers,
-    setUsersMore,
     unfollow,
-    toggleIsFetching,
-    btnIsFetching,
-    toggleIsFollowing
+    toggleIsFollowing,
+    getUsers,
+    getUsersMore
   })(UsersContainer);
