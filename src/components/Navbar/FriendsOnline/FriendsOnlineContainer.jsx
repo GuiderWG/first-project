@@ -1,19 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import FriendsOnline from "./FriendsOnline";
-import {setFriendsOnline} from "../../../redux/navbarReducer";
-import * as axios from "axios";
-import {usersAPI} from '../../../api/api';
+import {getFriendsOnline} from '../../../redux/navbarReducer';
 
 class FriendsOnlineContainer extends React.Component {
   componentDidMount() {
-    usersAPI
-      .getUsers(1, 4)
-      .then(response => {
-      if (this.props.friends.length === 0) {
-        this.props.setFriendsOnline(response.data.items);
-      }
-    });
+    this.props.getFriendsOnline();
   }
 
   render() {
@@ -27,12 +19,4 @@ let mapStateToProps = (state) => {
   }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//   return {
-//     setFriend: (friends) => {
-//       dispatch(setFriendsOnlineAC(friends));
-//     }
-//   }
-// }
-
-export default connect(mapStateToProps, {setFriendsOnline})(FriendsOnlineContainer);
+export default connect(mapStateToProps, {getFriendsOnline})(FriendsOnlineContainer);

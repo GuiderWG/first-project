@@ -74,8 +74,8 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const follow = userId => ({type: FOLLOW, userId});
-export const unfollow = userId => ({type: UNFOLLOW, userId});
+export const followSuccess = userId => ({type: FOLLOW, userId});
+export const unfollowSucces = userId => ({type: UNFOLLOW, userId});
 export const setUsers = users => ({type: SET_USERS, users});
 export const setCurrent = currentPage => ({type: SET_CURRENT, currentPage});
 export const setTotalCount = totalCount => ({type: SET_TOTAL_COUNT, totalCount});
@@ -109,5 +109,28 @@ export const getUsersMore = (pageNum, pageSize) => (dispatch) => {
       });
 };
 
+export const follow = (userId) => (dispatch) => {
+  dispatch(toggleIsFollowing(true, userId));
+  usersAPI
+    .setFollow(userId)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+      }
+      dispatch(toggleIsFollowing(false, userId));
+    });
+};
+
+export const unfollow = (userId) => (dispatch) => {
+  dispatch(toggleIsFollowing(true, userId));
+  usersAPI
+    .setUnfollow(userId)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(unfollowSucces(userId));
+      }
+      dispatch(toggleIsFollowing(false, userId));
+    });
+};
 
 export default usersReducer;

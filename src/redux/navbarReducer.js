@@ -1,3 +1,5 @@
+import {usersAPI} from '../api/api';
+
 const SET_FRIENDS = 'SET_FRIENDS';
 
 let initialState = {
@@ -23,5 +25,13 @@ const navbarReducer = (state = initialState, action) => {
 };
 
 export let setFriendsOnline = friends => ({type: SET_FRIENDS, friends})
+
+export const getFriendsOnline = () => (dispatch) => {
+  usersAPI
+    .getUsers(1, 4)
+    .then(response => {
+        dispatch(setFriendsOnline(response.data.items));
+    });
+}
 
 export default navbarReducer;

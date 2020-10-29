@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Users.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from '../../api/api';
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -34,31 +33,11 @@ let Users = (props) => {
                   ? <button
                       disabled={props.followingInProgress.some(id => id === user.id)}
                       className={`${s.button} ${s.button_gray}`}
-                      onClick={() => {
-                        props.toggleIsFollowing(true, user.id);
-                        usersAPI
-                            .setUnfollow(user.id)
-                            .then(response => {
-                              if (response.data.resultCode === 0) {
-                                props.unfollow(user.id);
-                              }
-                              props.toggleIsFollowing(false, user.id);
-                            });
-                      }}>Unfollow</button>
+                      onClick={() => { props.unfollow(user.id) }}>Unfollow</button>
                   : <button
                       disabled={props.followingInProgress.some(id => id === user.id)}
                       className={`${s.button} ${s.button_red}`}
-                      onClick={() => {
-                        props.toggleIsFollowing(true, user.id);
-                        usersAPI
-                            .setFollow(user.id)
-                            .then(response => {
-                              if (response.data.resultCode === 0) {
-                                props.follow(user.id);
-                              }
-                              props.toggleIsFollowing(false, user.id);
-                            });
-                      }}>Follow</button>}
+                      onClick={() => { props.follow(user.id); }}>Follow</button>}
             </div>
             <div className={s.rightCol}>
               <div className={s.info}>

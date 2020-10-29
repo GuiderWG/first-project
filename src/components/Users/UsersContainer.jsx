@@ -5,12 +5,10 @@ import {
   getUsers,
   getUsersMore,
   setCurrent,
-  toggleIsFollowing,
   unfollow
 } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../common/preloader/preloader';
-import {usersAPI} from '../../api/api';
 
 class UsersContainer extends React.Component {
 
@@ -47,10 +45,7 @@ class UsersContainer extends React.Component {
                  unfollow={this.props.unfollow}
                  follow={this.props.follow}
                  followingInProgress={this.props.followingInProgress}
-                 toggleIsFollowing={this.props.toggleIsFollowing}
                  btnTextIsFetching={this.props.btnTextIsFetching}/>}
-
-
       </>
     );
   }
@@ -71,9 +66,8 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps,
   {
     follow,
-    setCurrent,
     unfollow,
-    toggleIsFollowing,
+    setCurrent,
     getUsers,
     getUsersMore
   })(UsersContainer);
