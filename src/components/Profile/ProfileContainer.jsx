@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import Preloader from '../common/preloader/preloader';
 import {getUserProfile} from '../../redux/profileReducer';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
+
     return (
       <>
         {this.props.isFetching ?
@@ -24,6 +26,8 @@ class ProfileContainer extends React.Component {
   }
 }
 
+const AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
+
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
@@ -31,6 +35,6 @@ let mapStateToProps = (state) => {
   };
 };
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
 export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
