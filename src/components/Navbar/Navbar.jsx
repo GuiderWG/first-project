@@ -1,20 +1,18 @@
-import React from "react";
+import React from 'react';
 import s from './Navbar.module.css';
-import NavbarMenu from "./NavbarMenu/NavbarMenu";
-import FriendsOnlineContainer from "./FriendsOnline/FriendsOnlineContainer";
+import NavbarMenu from './NavbarMenu/NavbarMenu';
+import FriendsOnlineContainer from './FriendsOnline/FriendsOnlineContainer';
 
 const Navbar = (props) => {
-
-  let state = props.sidebar;
+  const state = props.sidebar;
   return (
-      <div className={s.navBar}>
-        <NavbarMenu links={state.menuLinks} />
+    <div className={s.navBar}>
+      <NavbarMenu links={state.menuLinks} />
 
-        <div className={s.friendsOnline}>
-            <FriendsOnlineContainer friends={state.friends} />
-        </div>
+      <div className={s.friendsOnline}>
+        <FriendsOnlineContainer friends={state.friends} />
       </div>
-
+    </div>
   );
 };
 

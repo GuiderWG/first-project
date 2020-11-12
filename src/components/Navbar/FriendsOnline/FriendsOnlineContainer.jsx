@@ -1,7 +1,7 @@
-import React from "react";
-import {connect} from "react-redux";
-import FriendsOnline from "./FriendsOnline";
-import {getFriendsOnline} from '../../../redux/navbarReducer';
+import React from 'react';
+import { connect } from 'react-redux';
+import FriendsOnline from './FriendsOnline';
+import { getFriendsOnline } from '../../../redux/navbarReducer';
 
 class FriendsOnlineContainer extends React.Component {
   componentDidMount() {
@@ -9,14 +9,12 @@ class FriendsOnlineContainer extends React.Component {
   }
 
   render() {
-    return <FriendsOnline friends={this.props.friends} />
+    return <FriendsOnline friends={this.props.friends} />;
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    friends: state.navbar.friends
-  }
-}
+const mapStateToProps = (state) => ({
+  friends: state.navbar.friends,
+});
 
-export default connect(mapStateToProps, {getFriendsOnline})(FriendsOnlineContainer);
+export default connect(mapStateToProps, { getFriendsOnline })(FriendsOnlineContainer);

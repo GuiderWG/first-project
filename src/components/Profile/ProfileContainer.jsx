@@ -1,40 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import Profile from './Profile';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import Preloader from '../common/preloader/preloader';
-import {getUserProfile} from '../../redux/profileReducer';
-import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
+import { getUserProfile } from '../../redux/profileReducer';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId;
+    const { userId } = this.props.match.params;
     this.props.getUserProfile(userId);
   }
 
   render() {
-
-    return (
-      <>
-        {this.props.isFetching ?
-          <Preloader/> :
-          <Profile {...this.props}
-                   profile={this.props.profile}/>}
-      </>
-
-    );
+    return <>{this.props.isFetching ? <Preloader /> : <Profile {...this.props} profile={this.props.profile} />}</>;
   }
 }
 
-const AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
+const mapStateToProps = (state) => ({
+  profile: state.profilePage.profile,
+  isFetching: state.profilePage.isFetching,
+});
 
-let mapStateToProps = (state) => {
-  return {
-    profile: state.profilePage.profile,
-    isFetching: state.profilePage.isFetching,
-  };
-};
-
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
-
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+export default compose(connect(mapStateToProps, { getUserProfile }), withRouter)(ProfileContainer);

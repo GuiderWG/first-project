@@ -1,30 +1,30 @@
-import React from "react";
-import s from "./MyPosts.module.css"
-import Post from "./Post/Post";
+import React from 'react';
+import s from './MyPosts.module.css';
+import Post from './Post/Post';
 
 const MyPosts = (props) => {
-  let postsElements = props.posts.map( post =>  <Post message={post.message} counts={post.counts} key={post.id} />);
+  const postsElements = props.posts.map((post) => <Post message={post.message} counts={post.counts} key={post.id} />);
 
-  let newPostElement = React.createRef()
+  const newPostElement = React.createRef();
 
-  let onAddPost = () => {
+  const onAddPost = () => {
     props.addPost();
   };
 
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
+  const onPostChange = () => {
+    const text = newPostElement.current.value;
     props.updateNewPostText(text);
-  }
+  };
 
   return (
-      <div className={s.postsBlock}>
-        <h2>My posts</h2>
-        <div className={s.form}>
-          <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText} />
-          <button onClick={onAddPost}>Add post</button>
-        </div>
-        <div className={s.posts}>{postsElements}</div>
+    <div className={s.postsBlock}>
+      <h2>My posts</h2>
+      <div className={s.form}>
+        <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText} />
+        <button onClick={onAddPost}>Add post</button>
       </div>
+      <div className={s.posts}>{postsElements}</div>
+    </div>
   );
 };
 

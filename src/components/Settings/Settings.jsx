@@ -1,12 +1,6 @@
-import React from "react";
-import s from "./Settings.module.css";
+import React from 'react';
+import s from './Settings.module.css';
 
-const Settings = (props) => {
-  return (
-      <div>
-        Settings
-      </div>
-  )
-};
+const Settings = (props) => <div>Settings</div>;
 
 export default Settings;
