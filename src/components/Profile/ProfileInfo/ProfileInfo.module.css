@@ -26,4 +26,5 @@
 
 .statusText {
   opacity: .7;
+  cursor: pointer;
 }
