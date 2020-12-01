@@ -21,7 +21,7 @@ const ProfileInfo = (props) => {
       <div className={s.inf}>
         <div className={s.fullName}>{props.profile.fullName}</div>
         {/* <div className={s.aboutMe}>{props.profile.aboutMe}</div> */}
-        <ProfileStatus status="status my test" />
+        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
         <div className={s.contacts}>
           {Object.keys(contacts).map((link, idx) =>
             contacts[link] ? (

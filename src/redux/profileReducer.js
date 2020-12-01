@@ -1,19 +1,18 @@
-import { usersAPI } from '../api/api';
+import { profileAPI, usersAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SER_USER_PROFILE = 'SER_USER_PROFILE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
   posts: [
     { id: 1, message: 'Hi, how are you', counts: 50 },
     { id: 2, message: 'fine and You?', counts: 31 },
   ],
-  newPostText: 'IT',
   profile: null,
-  profileStatus: 'Initial status',
   isFetching: false,
+  status: '',
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -21,15 +20,7 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST: {
       return {
         ...state,
-        newPostText: '',
-        posts: [...state.posts, { id: 5, message: state.newPostText, counts: 0 }],
-      };
-    }
-
-    case UPDATE_NEW_POST_TEXT: {
-      return {
-        ...state,
-        newPostText: action.newText,
+        posts: [...state.posts, { id: 5, message: action.postText, counts: 0 }],
       };
     }
     case SER_USER_PROFILE: {
@@ -38,6 +29,9 @@ const profileReducer = (state = initialState, action) => {
     case TOGGLE_IS_FETCHING: {
       return { ...state, isFetching: action.isFetching };
     }
+    case SET_STATUS: {
+      return { ...state, status: action.status };
+    }
     default:
       return state;
   }
@@ -45,6 +39,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const setUserProfile = (profile) => ({ type: SER_USER_PROFILE, profile });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
+export const setUserStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => (dispatch) => {
   dispatch(toggleIsFetching(true));
@@ -54,7 +49,20 @@ export const getUserProfile = (userId) => (dispatch) => {
   });
 };
 
-export const addPost = () => ({ type: ADD_POST });
-export const updateNewPost = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
+export const getStatus = (userId) => (dispatch) => {
+  profileAPI.getStatus(userId).then((response) => {
+    dispatch(setUserStatus(response.data));
+  });
+};
+
+export const updateStatus = (status) => (dispatch) => {
+  profileAPI.updateStatus(status).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatus(status));
+    }
+  });
+};
+
+export const addPost = postText => ({ type: ADD_POST, postText });
 
 export default profileReducer;

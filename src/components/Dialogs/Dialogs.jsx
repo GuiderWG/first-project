@@ -1,8 +1,8 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import s from './Dialogs.module.css';
 import MessageItem from './MessageItem/MessageItem';
 import DialogItem from './DialogsItem/DialogsItem';
+import MessageForm from './MessageForm/MessageForm';
 
 const Dialogs = (props) => {
   const state = props.dialogPage;
@@ -12,16 +12,9 @@ const Dialogs = (props) => {
   ));
   const messagesElements = state.messages.map((message) => <MessageItem message={message.message} key={message.id} />);
 
-  const sendMessage = () => {
-    props.sendMessage();
+  const addNewMessage = (formData) => {
+    props.addMessage(formData.message);
   };
-
-  const onMessageChange = (e) => {
-    const text = e.target.value;
-    props.updateNewMessage(text);
-  };
-
-  if (!props.isAuth) return <Redirect to="/login" />;
 
   return (
     <div className={s.dialogs}>
@@ -29,10 +22,7 @@ const Dialogs = (props) => {
       <div className={s.messages}>
         {messagesElements}
 
-        <div className={s.addMessage}>
-          <textarea onChange={onMessageChange} value={state.newMessageText} />
-          <button onClick={sendMessage}>Send message</button>
-        </div>
+        <MessageForm onSubmit={addNewMessage} />
       </div>
     </div>
   );
