@@ -5,3 +5,7 @@
 .formControl.error span {
   color: #CC0000;
 }
+
+.formControl {
+  margin-bottom: 30px;
+}
