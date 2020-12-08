@@ -8,7 +8,11 @@ const Header = (props) => (
   <header className={s.header}>
     <img src={reactLogo} alt="" />
     <div className={s.loginBlock}>
-      {props.isFetching ? <Preloader mini /> : props.isAuth ? props.login : <NavLink to="/Login">Login</NavLink>}
+      {props.isFetching
+        ? <Preloader mini />
+        : props.isAuth
+          ? <div>{props.login} - <button onClick={props.logout}>logout</button></div>
+          : <NavLink to="/Login">Login</NavLink>}
     </div>
   </header>
 );

@@ -1,7 +1,8 @@
 import { authAPI } from '../api/api';
+import { stopSubmit } from 'redux-form';
 
 const SET_USER_DATA = 'SET_USER_DATA';
-const LOGIN = 'LOGIN';
+//const LOGIN = 'LOGIN';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
@@ -18,7 +19,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        isAuth: true,
       };
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
@@ -43,10 +43,13 @@ export const getAuthUserData = () => (dispatch) => {
 export const login = (email, password, rememberMe) => (dispatch) => {
   dispatch(toggleIsFetching(true));
   authAPI.login(email, password, rememberMe).then((response) => {
-    console.log(response);
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserData());
+    } else {
+      let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Something wrong';
+      dispatch(stopSubmit('login', {_error: message}));
     }
+    
     dispatch(toggleIsFetching(false));
   });
 };

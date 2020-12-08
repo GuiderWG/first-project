@@ -30,9 +30,7 @@
 }
 
 .login .checkbox {
-    margin-bottom: 30px;
     display: flex;
-    align-items: center;
     justify-content: center;
     font-size: 16px;
     line-height: 16px;
@@ -47,4 +45,13 @@
 
 .checkbox span {
     opacity: .5;
+}
+
+.formSummaryError {
+    border: 1px solid #ff0033;
+    padding: 5px;
+    color: #ff0033;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    text-transform: uppercase;
 }

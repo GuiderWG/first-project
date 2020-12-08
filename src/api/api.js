@@ -25,10 +25,10 @@ export const authAPI = {
 };
 
 export const profileAPI = {
-  getUsersProfile(userId = 11509) {
+  getUsersProfile(userId) {
     return instance.get(`profile/${userId}`);
   },
-  getStatus(userId = 11509) {
+  getStatus(userId) {
     return instance.get(`profile/status/${userId}`);
   },
   updateStatus(status) {
@@ -42,7 +42,7 @@ export const usersAPI = {
   getUsers(currentPage = 1, pageSize = 10) {
     return instance.get(`users?page=${currentPage}&count=${pageSize}`);
   },
-  getUsersProfile(userId = 11509) {
+  getUsersProfile(userId) {
     console.warn('Obsolete method. Use "profileAPI" object.');
     return profileAPI.getUsersProfile(userId);
   },
