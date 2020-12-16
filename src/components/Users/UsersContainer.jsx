@@ -1,26 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { follow, getUsers, getUsersMore, setCurrent, unfollow } from '../../redux/usersReducer';
+import { follow, requestUsers, getUsersMore, setCurrent, unfollow } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../common/preloader/preloader';
 import { WithAuthRedirect } from '../../hoc/withAuthRedirect';
+import {
+  getBtnTextIsFetching,
+  getCurrentPage, getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalCount, getUsers
+} from '../../redux/usersSelectors';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
-  // onPageChanged = (pageNum) => {
-  //   this.props.getUsers(pageNum, this.props.pageSize);
-  //   this.props.setCurrent(pageNum);
-  //
-  //   usersAPI.getUsers(pageNum, this.props.pageSize)
-  //     .then(data => {
-  //       this.props.setUsers(data.items);
-  //     });
-  //
-  // };
+  onPageChanged = (pageNum) => {
+    this.props.getUsers(pageNum, this.props.pageSize);
+    this.props.setCurrent(pageNum);
+  
+    this.props.getUsersMore(pageNum, this.props.pageSize);
+
+  };
 
   onPageMore = (pageNum) => {
     this.props.getUsersMore(pageNum, this.props.pageSize);
@@ -51,16 +55,15 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.usersPage.users,
-  pageSize: state.usersPage.pageSize,
-  totalCount: state.usersPage.totalCount,
-  currentPage: state.usersPage.currentPage,
-  isFetching: state.usersPage.isFetching,
-  btnTextIsFetching: state.usersPage.btnTextIsFetching,
-  followingInProgress: state.usersPage.followingInProgress,
+  users: getUsers(state),
+  pageSize: getPageSize(state),
+  totalCount: getTotalCount(state),
+  currentPage: getCurrentPage(state),
+  isFetching: getIsFetching(state),
+  btnTextIsFetching: getBtnTextIsFetching(state),
+  followingInProgress: getFollowingInProgress(state),
 });
 
 export default compose(
-  connect(mapStateToProps, { follow, unfollow, setCurrent, getUsers, getUsersMore }),
-  WithAuthRedirect
+  connect(mapStateToProps, { follow, unfollow, setCurrent, getUsers: requestUsers, getUsersMore }),
 )(UsersContainer);

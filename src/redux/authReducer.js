@@ -31,7 +31,7 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const setAuthUserData = (id, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { id, email, login, isAuth } });
 export const getAuthUserData = () => (dispatch) => {
   dispatch(toggleIsFetching(true));
-  authAPI.getMyProfile().then((response) => {
+  return authAPI.getMyProfile().then((response) => {
     if (response.data.resultCode === 0) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserData(id, email, login, true));

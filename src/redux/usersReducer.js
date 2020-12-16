@@ -83,10 +83,11 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const btnIsFetching = (passIsFetching) => ({ type: BTN_IS_FETCHING, passIsFetching });
 export const toggleIsFollowing = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING, isFetching, userId });
 
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (page, pageSize) => (dispatch) => {
   dispatch(toggleIsFetching(true));
+  // dispatch(setCurrent(page));
 
-  usersAPI.getUsers(currentPage, pageSize).then((response) => {
+  usersAPI.getUsers(page, pageSize).then((response) => {
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(response.data.items));
     dispatch(setTotalCount(response.data.totalCount));
