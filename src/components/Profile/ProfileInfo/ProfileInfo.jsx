@@ -20,7 +20,6 @@ const ProfileInfo = (props) => {
       </div>
       <div className={s.inf}>
         <div className={s.fullName}>{props.profile.fullName}</div>
-        {/* <div className={s.aboutMe}>{props.profile.aboutMe}</div> */}
         <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
         <div className={s.contacts}>
           {Object.keys(contacts).map((link, idx) =>
