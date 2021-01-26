@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { follow, requestUsers, getUsersMore, setCurrent, unfollow } from '../../redux/usersReducer';
+import {follow, requestUsers, getUsersMore, unfollow, setCurrentPage} from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../common/preloader/preloader';
-import { WithAuthRedirect } from '../../hoc/withAuthRedirect';
 import {
   getBtnTextIsFetching,
   getCurrentPage, getFollowingInProgress,
@@ -15,26 +14,30 @@ import {
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    const { currentPage, pageSize } = this.props;
+    this.props.getUsers(currentPage, pageSize);
   }
-
-  onPageChanged = (pageNum) => {
-    this.props.getUsers(pageNum, this.props.pageSize);
-    this.props.setCurrent(pageNum);
   
-    this.props.getUsersMore(pageNum, this.props.pageSize);
-
+  onPageChanged = (pageNum) => {
+    const { getUsers, pageSize, setCurrentPage, getUsersMore } = this.props;
+    getUsers(pageNum, pageSize);
+    setCurrentPage(pageNum);
+    getUsersMore(pageNum, pageSize);
+    
   };
-
+  
   onPageMore = (pageNum) => {
-    this.props.getUsersMore(pageNum, this.props.pageSize);
+    const { getUsersMore, pageSize} = this.props;
+    setCurrentPage(++pageNum);
+    getUsersMore(pageNum, pageSize);
   };
-
+  
   render() {
+    const {isFetching} = this.props;
     return (
       <>
-        {this.props.isFetching ? (
-          <Preloader />
+        {isFetching ? (
+          <Preloader/>
         ) : (
           <Users
             totalCount={this.props.totalCount}
@@ -65,5 +68,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, { follow, unfollow, setCurrent, getUsers: requestUsers, getUsersMore }),
+  connect(mapStateToProps, { follow, unfollow, setCurrentPage, getUsers: requestUsers, getUsersMore }),
 )(UsersContainer);

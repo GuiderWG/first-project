@@ -4,22 +4,17 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { login, logout } from '../../redux/authReducer';
 import s from './Login.module.css';
-import { Input } from '../common/FormsControls/FormsControls';
+import { createField, Input } from '../common/FormsControls/FormsControls';
 import { required } from '../../utils/validation/validators';
 import { Redirect } from 'react-router-dom';
 
-const LoginForm = (props) => (
-  <form onSubmit={props.handleSubmit}>
-    <div>
-      <Field placeholder={'Email'} name={'email'} component={Input} validate={required}/>
-    </div>
-    <div>
-      <Field placeholder={'Password'} name={'password'} component={Input} validate={required}/>
-    </div>
-    <div className={s.checkbox}>
-      <Field type={'checkbox'} name={'rememberMe'} component={Input}/> <span>remember me</span>
-    </div>
-    {props.error && <div className={s.formSummaryError}>{props.error}</div>}
+const LoginForm = ({ handleSubmit, error }) => (
+  <form onSubmit={handleSubmit}>
+    {createField('Email', 'email', required, Input)}
+    {createField('Password', 'password', required, Input, {type: 'password'})}
+    {createField(null, 'rememberMe', null, Input, {type: 'checkbox'}, 'remember me')}
+    
+    {error && <div className={s.formSummaryError}>{error}</div>}
     <div>
       <button>Login</button>
     </div>
@@ -30,15 +25,15 @@ const LoginReduxForm = reduxForm({
   form: 'login',
 })(LoginForm);
 
-const Login = (props) => {
+const Login = ({ login, isAuth }) => {
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe);
+    login(formData.email, formData.password, formData.rememberMe);
   };
-
-  if (props.isAuth) {
+  
+  if (isAuth) {
     return <Redirect to={'/profile'}/>;
   }
-
+  
   return (
     <div className={s.login}>
       <h1>LOGIN</h1>
@@ -48,7 +43,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+  isAuth: state.auth.isAuth
 });
 
 
